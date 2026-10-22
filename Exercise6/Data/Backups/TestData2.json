@@ -1,0 +1,1237 @@
+[
+  {
+    "type": "CarGarage",
+    "VehicleTypes": [
+      3,
+      4,
+      2
+    ],
+    "Capacity": 100,
+    "ParkingSpots": [
+      {
+        "Id": 1,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 1,
+          "LicensePlateNumber": "GRE345",
+          "Color": "Black",
+          "Brand": "BMW"
+        }
+      },
+      {
+        "Id": 2,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "DKT345",
+          "CylinderVolume": 500,
+          "Color": "Red",
+          "Brand": "Yamaha"
+        }
+      },
+      {
+        "Id": 3,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "GDF443",
+          "NumberOfSeats": 40,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 4,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 0,
+          "LicensePlateNumber": "KLM789",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 5,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "HJK234",
+          "CylinderVolume": 650,
+          "Color": "Green",
+          "Brand": "Kawasaki"
+        }
+      },
+      {
+        "Id": 6,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 0,
+          "LicensePlateNumber": "TST101",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 7,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST102",
+          "CylinderVolume": 600,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 8,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST103",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 9,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 1,
+          "LicensePlateNumber": "TST104",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 10,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST105",
+          "CylinderVolume": 500,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 11,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST106",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 12,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 0,
+          "LicensePlateNumber": "TST107",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 13,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST108",
+          "CylinderVolume": 800,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 14,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST109",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 15,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 1,
+          "LicensePlateNumber": "TST110",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 16,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST111",
+          "CylinderVolume": 700,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 17,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST112",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 18,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 0,
+          "LicensePlateNumber": "TST113",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 19,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST114",
+          "CylinderVolume": 600,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 20,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST115",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 21,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 1,
+          "LicensePlateNumber": "TST116",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 22,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST117",
+          "CylinderVolume": 500,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 23,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST118",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 24,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 0,
+          "LicensePlateNumber": "TST119",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 25,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST120",
+          "CylinderVolume": 800,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 26,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST121",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 27,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 1,
+          "LicensePlateNumber": "TST122",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 28,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST123",
+          "CylinderVolume": 700,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 29,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST124",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 30,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 0,
+          "LicensePlateNumber": "TST125",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 31,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST126",
+          "CylinderVolume": 600,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 32,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST127",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 33,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 1,
+          "LicensePlateNumber": "TST128",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 34,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST129",
+          "CylinderVolume": 500,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 35,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST130",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 36,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 0,
+          "LicensePlateNumber": "TST131",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 37,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST132",
+          "CylinderVolume": 800,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 38,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST133",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 39,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 1,
+          "LicensePlateNumber": "TST134",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 40,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST135",
+          "CylinderVolume": 700,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 41,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST136",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 42,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 0,
+          "LicensePlateNumber": "TST137",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 43,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST138",
+          "CylinderVolume": 600,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 44,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST139",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 45,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 1,
+          "LicensePlateNumber": "TST140",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 46,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST141",
+          "CylinderVolume": 500,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 47,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST142",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 48,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Car",
+          "FuelType": 0,
+          "LicensePlateNumber": "TST143",
+          "Color": "White",
+          "Brand": "Volvo"
+        }
+      },
+      {
+        "Id": 49,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST144",
+          "CylinderVolume": 800,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 50,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Bus",
+          "LicensePlateNumber": "TST145",
+          "NumberOfSeats": 50,
+          "Color": "Blue",
+          "Brand": "Scania"
+        }
+      },
+      {
+        "Id": 51,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 52,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 53,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 54,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 55,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 56,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 57,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 58,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 59,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 60,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 61,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 62,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 63,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 64,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 65,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 66,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 67,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 68,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 69,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 70,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 71,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 72,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 73,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 74,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 75,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 76,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 77,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 78,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 79,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 80,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 81,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 82,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 83,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 84,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 85,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 86,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 87,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 88,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 89,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 90,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 91,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 92,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 93,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 94,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 95,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 96,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 97,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 98,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 99,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 100,
+        "IsOccupied": false,
+        "Vehicle": null
+      }
+    ],
+    "OccupiedSlots": 50,
+    "AvailableSlots": 50,
+    "Name": "MassaFordon"
+  },
+  {
+    "type": "Hangar",
+    "VehicleTypes": [
+      0
+    ],
+    "Capacity": 10,
+    "ParkingSpots": [
+      {
+        "Id": 1,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Airplane",
+          "NumberOfEngines": 1,
+          "Color": "White",
+          "Brand": "cessna"
+        }
+      },
+      {
+        "Id": 2,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Airplane",
+          "NumberOfEngines": 2,
+          "Color": "Blue",
+          "Brand": "Piper"
+        }
+      },
+      {
+        "Id": 3,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Airplane",
+          "NumberOfEngines": 1,
+          "Color": "White",
+          "Brand": "Piper"
+        }
+      },
+      {
+        "Id": 4,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Airplane",
+          "NumberOfEngines": 2,
+          "Color": "White",
+          "Brand": "Piper"
+        }
+      },
+      {
+        "Id": 5,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Airplane",
+          "NumberOfEngines": 1,
+          "Color": "White",
+          "Brand": "Piper"
+        }
+      },
+      {
+        "Id": 6,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 7,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 8,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 9,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 10,
+        "IsOccupied": false,
+        "Vehicle": null
+      }
+    ],
+    "OccupiedSlots": 5,
+    "AvailableSlots": 5,
+    "Name": "N\u00E5graFlygplan"
+  },
+  {
+    "type": "Marina",
+    "VehicleTypes": [
+      1
+    ],
+    "Capacity": 20,
+    "ParkingSpots": [
+      {
+        "Id": 1,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Boat",
+          "Length": 4.5,
+          "Color": "Silver",
+          "Brand": "Buster"
+        }
+      },
+      {
+        "Id": 2,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Boat",
+          "Length": 6.2,
+          "Color": "Navy",
+          "Brand": "Nimbus"
+        }
+      },
+      {
+        "Id": 3,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Boat",
+          "Length": 5,
+          "Color": "Blue",
+          "Brand": "Nimbus"
+        }
+      },
+      {
+        "Id": 4,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Boat",
+          "Length": 6,
+          "Color": "Blue",
+          "Brand": "Nimbus"
+        }
+      },
+      {
+        "Id": 5,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Boat",
+          "Length": 7,
+          "Color": "Blue",
+          "Brand": "Nimbus"
+        }
+      },
+      {
+        "Id": 6,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Boat",
+          "Length": 8,
+          "Color": "Blue",
+          "Brand": "Nimbus"
+        }
+      },
+      {
+        "Id": 7,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Boat",
+          "Length": 5,
+          "Color": "Blue",
+          "Brand": "Nimbus"
+        }
+      },
+      {
+        "Id": 8,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Boat",
+          "Length": 6,
+          "Color": "Blue",
+          "Brand": "Nimbus"
+        }
+      },
+      {
+        "Id": 9,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Boat",
+          "Length": 7,
+          "Color": "Blue",
+          "Brand": "Nimbus"
+        }
+      },
+      {
+        "Id": 10,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Boat",
+          "Length": 8,
+          "Color": "Blue",
+          "Brand": "Nimbus"
+        }
+      },
+      {
+        "Id": 11,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 12,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 13,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 14,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 15,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 16,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 17,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 18,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 19,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 20,
+        "IsOccupied": false,
+        "Vehicle": null
+      }
+    ],
+    "OccupiedSlots": 10,
+    "AvailableSlots": 10,
+    "Name": "V\u00E5taB\u00E5tar"
+  },
+  {
+    "type": "MCGarage",
+    "VehicleTypes": [
+      4
+    ],
+    "Capacity": 20,
+    "ParkingSpots": [
+      {
+        "Id": 1,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "FFD556",
+          "CylinderVolume": 800,
+          "Color": "Yellow",
+          "Brand": "Suzuki"
+        }
+      },
+      {
+        "Id": 2,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "LMP678",
+          "CylinderVolume": 900,
+          "Color": "Black",
+          "Brand": "Yamaha"
+        }
+      },
+      {
+        "Id": 3,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST157",
+          "CylinderVolume": 500,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 4,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST158",
+          "CylinderVolume": 600,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 5,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST159",
+          "CylinderVolume": 700,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 6,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST160",
+          "CylinderVolume": 800,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 7,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST161",
+          "CylinderVolume": 500,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 8,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST162",
+          "CylinderVolume": 600,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 9,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST163",
+          "CylinderVolume": 700,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 10,
+        "IsOccupied": true,
+        "Vehicle": {
+          "type": "Motorcycle",
+          "LicensePlateNumber": "TST164",
+          "CylinderVolume": 800,
+          "Color": "Black",
+          "Brand": "Honda"
+        }
+      },
+      {
+        "Id": 11,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 12,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 13,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 14,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 15,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 16,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 17,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 18,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 19,
+        "IsOccupied": false,
+        "Vehicle": null
+      },
+      {
+        "Id": 20,
+        "IsOccupied": false,
+        "Vehicle": null
+      }
+    ],
+    "OccupiedSlots": 10,
+    "AvailableSlots": 10,
+    "Name": "SnabbaCyklar"
+  }
+]
