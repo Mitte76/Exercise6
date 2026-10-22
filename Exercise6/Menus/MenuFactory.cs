@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Exercise6.Data;
 using Exercise6.Facilities;
@@ -191,8 +192,8 @@ namespace Exercise6.Menus
 
         private static Menu SearchByCriteria(Garage garage)
         {
-            //var criterias = new Dictionary<string, string>();
-            List<(string Name, string Value)> criterias = [];
+            var criterias = new Dictionary<string, string>();
+
             string[] availableCriteria =
             [
                 "Brand",
@@ -220,9 +221,8 @@ namespace Exercise6.Menus
                     Console.WriteLine("\nSelected criterias:");
                     foreach (var criteria in criterias)
                     {
-                        Console.WriteLine($"{criteria.Name}: {criteria.Value}");
+                        Console.WriteLine($"{criteria.Key}: {criteria.Value}");
                     }
-
                     Console.ResetColor();
                 }
 
@@ -290,31 +290,34 @@ namespace Exercise6.Menus
 
                         if (criterionName != null)
                         {
-                            criterias.Add((criterionName, parts[1].Trim()));
+                            if (criterias.TryGetValue(criterionName, out string? currentCriterie))
+                            {
+                                criterias[criterionName] = $"{currentCriterie},{parts[1].Trim()}";
+                            }
+                            else
+                            {
+                                criterias[criterionName] = parts[1].Trim();
+                            }
                             input = "";
                         }
                     }
                 }
             }
 
-            StringBuilder extras = new("Results matching the following criteria:\n");
-
-            foreach (var (Name, Value) in criterias)
-            {
-                extras.AppendLine($"{Name}: {Value}");
-            }
+            string extras =
+                "Results matching the following criteria:\n"
+                + string.Join("\n", criterias.Select(c => $"{c.Key}: {c.Value}"));
 
             return new Menu(
                 () => "Search Results",
                 () => SearchByCriteriaResults(garage, criterias),
-                extra: () => extras.ToString()
+                extra: () => extras
             );
         }
 
         private static MenuItem[] SearchByCriteriaResults(
             Garage garage,
-            List<(string Name, string Value)> criteria
-        //Dictionary<string, string> criteria
+            Dictionary<string, string> criteria
         )
         {
             var results = new List<MenuItem>();
@@ -328,7 +331,7 @@ namespace Exercise6.Menus
 
                 foreach (var criterion in criteria)
                 {
-                    string? value = criterion.Value switch
+                    string? value = criterion.Key switch
                     {
                         "Brand" => vehicle.Brand,
                         "Color" => vehicle.Color,
@@ -350,10 +353,26 @@ namespace Exercise6.Menus
                         _ => null,
                     };
 
-                    if (
-                        value == null
-                        || !value.Contains(criterion.Value, StringComparison.OrdinalIgnoreCase)
-                    )
+                    bool criterionMatches = false;
+
+                    if (value != null)
+                    {
+                        foreach (string searchValue in criterion.Value.Split(','))
+                        {
+                            if (
+                                value.Contains(
+                                    searchValue.Trim(),
+                                    StringComparison.OrdinalIgnoreCase
+                                )
+                            )
+                            {
+                                criterionMatches = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!criterionMatches)
                     {
                         matches = false;
                         break;
@@ -449,20 +468,13 @@ namespace Exercise6.Menus
             return new Menu(
                 () => "Select vehicle type",
                 () =>
-                {
-                    List<MenuItem> items = [];
-
-                    foreach (var type in garage.VehicleTypes)
-                    {
-                        items.Add(
-                            new MenuItem(type.ToString(), action: () => ParkVehicle(garage, type))
-                        );
-                    }
-
-                    items.Add(new MenuItem("Back"));
-
-                    return [.. items];
-                }
+                    [
+                        .. garage.VehicleTypes.Select(type => new MenuItem(
+                            type.ToString(),
+                            action: () => ParkVehicle(garage, type)
+                        )),
+                        new MenuItem("Back"),
+                    ]
             );
         }
 
