@@ -4,10 +4,9 @@ using System.IO;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Exercise5.Facilities;
-using Exercise5.Vehicles;
+using Exercise6.Facilities;
 
-namespace Exercise5.Data
+namespace Exercise6.Data
 {
     internal static class DataHandler
     {

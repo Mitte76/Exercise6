@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Exercise5.Facilities;
+using Exercise6.Facilities;
 
-namespace Exercise5.Vehicles
+namespace Exercise6.Vehicles
 {
     [Serializable()]
     internal class Car(string brand, string color, string licensePlateNumber, FuelType fuelType)

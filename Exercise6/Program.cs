@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Exercise5.Data;
-using Exercise5.Facilities;
-using Exercise5.Menus;
+using Exercise6.Facilities;
+using Exercise6.Menus;
 
-namespace Exercise5
+namespace Exercise6
 {
     internal class Program
     {

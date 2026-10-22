@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Exercise5.Menus
+namespace Exercise6.Menus
 {
     public class Menu(
         Func<string> menuName,

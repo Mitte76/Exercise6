@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Exercise5.Facilities
+﻿namespace Exercise6.Facilities
 {
     public enum GarageType
     {

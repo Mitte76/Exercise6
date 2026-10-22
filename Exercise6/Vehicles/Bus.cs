@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Exercise5.Facilities;
+using Exercise6.Facilities;
 
-namespace Exercise5.Vehicles
+namespace Exercise6.Vehicles
 {
     internal class Bus(string brand, string color, string licensePlateNumber, int numberOfSeats)
         : Vehicle(brand, color)

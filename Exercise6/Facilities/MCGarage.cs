@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Exercise5.Vehicles;
+using Exercise6.Vehicles;
 
-namespace Exercise5.Facilities
+namespace Exercise6.Facilities
 {
     internal class MCGarage(string name, int capacity) : Garage(name, capacity)
     {

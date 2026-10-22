@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Exercise5.Data;
-using Exercise5.Facilities;
-using Exercise5.Vehicles;
+using Exercise6.Data;
+using Exercise6.Facilities;
+using Exercise6.Vehicles;
 
-namespace Exercise5.Menus
+namespace Exercise6.Menus
 {
     internal class MenuFactory(List<Garage> facilities)
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
-using Exercise5.Facilities;
+using Exercise6.Facilities;
 
-namespace Exercise5.Vehicles
+namespace Exercise6.Vehicles
 {
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
     [JsonDerivedType(typeof(Airplane), "Airplane")]
@@ -82,10 +82,9 @@ namespace Exercise5.Vehicles
                         _ => null,
                     };
 
-                    if (existingNumber?.Equals(
-                            validatedNumber,
-                            StringComparison.OrdinalIgnoreCase
-                        ) == true
+                    if (
+                        existingNumber?.Equals(validatedNumber, StringComparison.OrdinalIgnoreCase)
+                        == true
                     )
                     {
                         throw new ArgumentException(
@@ -97,6 +96,5 @@ namespace Exercise5.Vehicles
 
             return validatedNumber;
         }
-
     }
 }
