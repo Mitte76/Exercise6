@@ -1,32 +1,52 @@
-# Övning 5: Garage 1.0
+# Garage 2.0
 
-Detta är en robust konsolapplikation i C# som simulerar ett enkelt hanteringssystem för ett fysiskt garage. Projektet är byggt för att demonstrera objektorienterad programmering (OOP), arv, polymorfism och hantering av egna samlingar.
+En konsolapplikation utvecklad i C# som simulerar ett garagesystem. Projektet är en del av **C# Övning 6** och fokuserar på objektorienterad programmering, arv, samlingar och menyhantering.
 
-## 🚀 Funktioner
+## Funktioner
 
-* **Dynamiskt Garage:** Skapa ett garage med en användarspecificerad kapacitet.
-* **Fordonshantering:** Parkera, hämta ut och lista fordon.
-* **Avancerad sökning:** Sök efter specifika fordon via skiftlägesokänsligt registreringsnummer (t.ex. `abc123`) eller kombinera egenskaper (t.ex. "alla svarta fordon med 4 hjul").
-* **Statistik:** Visa en översikt av hur många fordon av varje typ som står i garaget för tillfället.
-* **Förpopulering:** Möjlighet att starta applikationen med ett antal färdigparkerade fordon för enklare testning.
-* **Robust felhantering:** Applikationen validerar all användarindata och kraschar inte vid felaktiga inmatningar.
+- Skapa ett garage med valfri kapacitet.
+- Parkera och hämta ut fordon.
+- Lista alla parkerade fordon och deras egenskaper.
+- Visa antal fordon av varje typ.
+- Söka efter fordon via registreringsnummer, oberoende av versaler och gemener.
+- Söka efter fordon med ett eller flera kriterier, exempelvis färg, antal hjul och fordonstyp.
+- Hantera felaktig inmatning med tydlig återkoppling till användaren.
+- Navigera genom huvudmeny och undermenyer.
 
-## 🛠️ Arkitektur & Krav
+## Fordonstyper
 
-Projektet följer en strikt uppdelning av ansvarsområden (Separation of Concerns):
+Fordon implementeras med basklassen `Vehicle` och följande subklasser:
 
-* **Användargränssnitt (UI):** En textbaserad huvudmeny med undermenyer som hanterar all interaktion och ger tydlig feedback till användaren.
-* **Garage-klassen:** Hanterar samlingen av fordon internt. **Viktigt:** Använder en strikt, privat `Vehicle[]`-array i stället för `List<Vehicle>` enligt kravspecifikationen.
-* **Vehicle (Basmodell):** Innehåller gemensamma egenskaper för alla fordon (unikt registreringsnummer, färg, antal hjul).
-* **Subklasser (Fordonstyper):** 
-  * `Airplane` (Egen egenskap: Antal motorer)
-  * `Motorcycle` (Egen egenskap: Cylindervolym)
-  * `Car` (Egen egenskap: Bränsletyp)
-  * `Bus` (Egen egenskap: Antal sittplatser)
-  * `Boat` (Egen egenskap: Längd)
+- `Car`
+- `Motorcycle`
+- `Airplane`
+- `Bus`
+- `Boat`
 
-## 💻 Komma igång
+Varje fordon har gemensamma egenskaper, exempelvis registreringsnummer, färg och antal hjul, samt fordonsspecifika egenskaper.
 
-1. Öppna lösningsfilen (`.sln`) i Visual Studio.
-2. Starta projektet (`F5` eller klicka på *Play*).
-3. Följ instruktionerna på skärmen för att skapa ditt första garage och börja parkera fordon.
+Registreringsnummer ska vara unika.
+
+## Teknik och koncept
+
+- C#
+- Objektorienterad programmering (OOP)
+- Arv och polymorfism
+- Inkapsling
+- `List<Vehicle>` för hantering av fordon
+- Konsolbaserat användargränssnitt
+- Menyer och undermenyer
+- Validering och felhantering
+
+## Begränsningar
+
+Projektets grundkrav innebär att:
+
+- Fordonen ska lagras i en privat `List<Vehicle>` i klassen `Garage`.
+- Garagets kapacitet ska anges vid instansiering.
+- Arrayer, generiska garageklasser och LINQ ska inte användas.
+- Enhetstester ingår inte i uppgiften.
+
+## Syfte
+
+Syftet är att tillämpa tidigare kunskaper i C# genom att bygga en sammanhängande applikation med tydlig klassindelning, hantering av objekt och samlingar samt ett användarvänligt konsolgränssnitt.

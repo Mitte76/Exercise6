@@ -7,7 +7,7 @@ namespace Exercise6
 {
     internal class Program
     {
-        private static List<Garage> facilities = [];
+        private static readonly List<Garage> facilities = [];
 
         static async Task Main()
         {

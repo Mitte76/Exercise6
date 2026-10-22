@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
 using Exercise6.Vehicles;
 
@@ -13,31 +12,56 @@ namespace Exercise6.Facilities
     [JsonDerivedType(typeof(MCGarage), "MCGarage")]
     internal abstract class Garage
     {
-        public abstract VehicleType[] VehicleTypes { get; }
+        public abstract List<VehicleType> VehicleTypes { get; }
 
         public string Name { get; private set; }
-        public int Capacity => parkingSpots.Length;
+        public int Capacity { get; private set; }
 
-        public int OccupiedSlots => parkingSpots.Count(p => p.IsOccupied);
+        public int OccupiedSlots
+        {
+            get
+            {
+                int count = 0;
+                foreach (ParkingSpot spot in parkingSpots)
+                {
+                    if (spot.IsOccupied)
+                        count++;
+                }
+                return count;
+            }
+        }
 
-        public int AvailableSlots => parkingSpots.Count(p => !p.IsOccupied);
+        public int AvailableSlots
+        {
+            get
+            {
+                int count = 0;
+                foreach (ParkingSpot spot in parkingSpots)
+                {
+                    if (!spot.IsOccupied)
+                        count++;
+                }
+                return count;
+            }
+        }
 
-        private ParkingSpot[] parkingSpots;
+        private List<ParkingSpot> parkingSpots;
 
         protected Garage(string name, int capacity)
         {
-            parkingSpots = new ParkingSpot[capacity];
+            parkingSpots = [];
+            Capacity = capacity;
 
             for (int i = 0; i < capacity; i++)
             {
-                parkingSpots[i] = new ParkingSpot(i + 1);
+                parkingSpots.Add(new ParkingSpot(i + 1));
             }
 
             Name = name;
         }
 
         [JsonInclude]
-        public ParkingSpot[] ParkingSpots
+        public List<ParkingSpot> ParkingSpots
         {
             get => parkingSpots;
             private set => parkingSpots = value;
@@ -73,37 +97,34 @@ namespace Exercise6.Facilities
             return counts;
         }
 
-        public void GetFirstAvailableParkignSpot()
+        public ParkingSpot? GetFirstAvailableParkignSpot()
         {
-            ParkingSpot? spot = parkingSpots.FirstOrDefault(p => !p.IsOccupied);
+            foreach (ParkingSpot spot in parkingSpots)
+            {
+                if (!spot.IsOccupied)
+                    return spot;
+            }
+            return null;
         }
 
-        public ParkingSpot[] GetAllOccupiesSpots()
+        public List<ParkingSpot> GetAllOccupiesSpots()
         {
-            ParkingSpot[] occupiedSpots = [.. parkingSpots.Where(p => p.IsOccupied)];
+            List<ParkingSpot> occupiedSpots = [];
+            foreach (ParkingSpot parkingSpot in parkingSpots)
+            {
+                if (parkingSpot.IsOccupied)
+                    occupiedSpots.Add(parkingSpot);
+            }
             return occupiedSpots;
         }
 
         public string ParkCar(Vehicle vehicle)
         {
-            ParkingSpot? spot = parkingSpots.FirstOrDefault(p => !p.IsOccupied);
+            ParkingSpot? spot = GetFirstAvailableParkignSpot();
             if (spot == null)
                 return "No available parking spot found";
             spot.AddVehicle(vehicle);
             return $"Car parked successfully {AvailableSlots} slots available. {OccupiedSlots} Vehicles currenty parked";
-        }
-
-        public void ResizeCapacity(int newCapacity)
-        {
-            if (OccupiedSlots > newCapacity)
-            {
-                throw new ArgumentException(
-                    "new capacity is less than current occupants\n"
-                        + $"You currently have {OccupiedSlots} parked vehicles."
-                );
-            }
-
-            Array.Resize(ref parkingSpots, newCapacity);
         }
     }
 }

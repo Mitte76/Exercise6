@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Exercise6.Data;
 using Exercise6.Facilities;
@@ -50,7 +49,7 @@ namespace Exercise6.Menus
         {
             string vehicleTypes = string.Join("/", garage.VehicleTypes);
             MenuItem parkVehicle =
-                garage.VehicleTypes.Length == 1
+                garage.VehicleTypes.Count == 1
                     ? new MenuItem(
                         $"Park {vehicleTypes}",
                         action: () => ParkVehicle(garage, garage.VehicleTypes[0])
@@ -192,8 +191,8 @@ namespace Exercise6.Menus
 
         private static Menu SearchByCriteria(Garage garage)
         {
-            var criterias = new Dictionary<string, string>();
-
+            //var criterias = new Dictionary<string, string>();
+            List<(string Name, string Value)> criterias = [];
             string[] availableCriteria =
             [
                 "Brand",
@@ -221,16 +220,21 @@ namespace Exercise6.Menus
                     Console.WriteLine("\nSelected criterias:");
                     foreach (var criteria in criterias)
                     {
-                        Console.WriteLine($"{criteria.Key}: {criteria.Value}");
+                        Console.WriteLine($"{criteria.Name}: {criteria.Value}");
                     }
+
                     Console.ResetColor();
                 }
 
                 string criterion = input.Split(':')[0].Trim();
 
-                string[] suggestions = availableCriteria
-                    .Where(c => c.StartsWith(criterion, StringComparison.OrdinalIgnoreCase))
-                    .ToArray();
+                List<string> suggestions = [];
+
+                foreach (string c in availableCriteria)
+                {
+                    if (c.StartsWith(criterion, StringComparison.OrdinalIgnoreCase))
+                        suggestions.Add(c);
+                }
 
                 Console.WriteLine("\nAvailable criteria:");
 
@@ -273,33 +277,44 @@ namespace Exercise6.Menus
                     )
                     {
                         string enteredCriterion = parts[0].Trim();
-                        string? criterionName = availableCriteria.FirstOrDefault(criterion =>
-                            criterion.Equals(enteredCriterion, StringComparison.OrdinalIgnoreCase)
-                        );
+                        string? criterionName = null;
+
+                        foreach (string c in availableCriteria)
+                        {
+                            if (c.Equals(enteredCriterion, StringComparison.OrdinalIgnoreCase))
+                            {
+                                criterionName = c;
+                                break;
+                            }
+                        }
 
                         if (criterionName != null)
                         {
-                            criterias[criterionName] = parts[1].Trim();
+                            criterias.Add((criterionName, parts[1].Trim()));
                             input = "";
                         }
                     }
                 }
             }
 
-            string extras =
-                "Results matching the following criteria:\n"
-                + string.Join("\n", criterias.Select(c => $"{c.Key}: {c.Value}"));
+            StringBuilder extras = new("Results matching the following criteria:\n");
+
+            foreach (var (Name, Value) in criterias)
+            {
+                extras.AppendLine($"{Name}: {Value}");
+            }
 
             return new Menu(
                 () => "Search Results",
                 () => SearchByCriteriaResults(garage, criterias),
-                extra: () => extras
+                extra: () => extras.ToString()
             );
         }
 
         private static MenuItem[] SearchByCriteriaResults(
             Garage garage,
-            Dictionary<string, string> criteria
+            List<(string Name, string Value)> criteria
+        //Dictionary<string, string> criteria
         )
         {
             var results = new List<MenuItem>();
@@ -313,7 +328,7 @@ namespace Exercise6.Menus
 
                 foreach (var criterion in criteria)
                 {
-                    string? value = criterion.Key switch
+                    string? value = criterion.Value switch
                     {
                         "Brand" => vehicle.Brand,
                         "Color" => vehicle.Color,
@@ -374,36 +389,28 @@ namespace Exercise6.Menus
                 () => "Select Vehicle",
                 () =>
                 {
-                    var allVehicles = garage
-                        .ParkingSpots.Where(spot =>
-                            spot.Vehicle is Vehicle vehicle
-                            && vehicle switch
-                            {
-                                Car => garage.VehicleTypes.Contains(VehicleType.Car),
-                                Bus => garage.VehicleTypes.Contains(VehicleType.Bus),
-                                Motorcycle => garage.VehicleTypes.Contains(VehicleType.Motorcycle),
-                                Boat => garage.VehicleTypes.Contains(VehicleType.Boat),
-                                Airplane => garage.VehicleTypes.Contains(VehicleType.Airplane),
-                                _ => false,
-                            }
-                        )
-                        .Select(spot => (Spot: spot, Vehicle: spot.Vehicle!))
-                        .ToArray();
+                    var allVehicles = garage.GetAllOccupiesSpots();
 
                     totalPages = Math.Max(
                         1,
-                        (int)Math.Ceiling(allVehicles.Length / (double)pageSize)
+                        (int)Math.Ceiling(allVehicles.Count / (double)pageSize)
                     );
                     currentPage = Math.Clamp(currentPage, 0, totalPages - 1);
 
-                    var items = allVehicles
-                        .Skip(currentPage * pageSize)
-                        .Take(pageSize)
-                        .Select(item => new MenuItem(
-                            $"{item.Vehicle.Brand} ({item.Vehicle.GetType().Name})",
-                            submenu: EditVehicle(item.Spot)
-                        ))
-                        .ToList();
+                    int startIndex = currentPage * pageSize;
+                    int range = Math.Min(pageSize, allVehicles.Count - startIndex);
+
+                    var items2 = allVehicles.GetRange(startIndex, range);
+                    List<MenuItem> items = [];
+                    foreach (ParkingSpot item in items2)
+                    {
+                        items.Add(
+                            new MenuItem(
+                                $"{item.Vehicle!.Brand} ({item.Vehicle.GetType().Name})",
+                                submenu: EditVehicle(item)
+                            )
+                        );
+                    }
 
                     if (currentPage > 0)
                         items.Add(
@@ -442,13 +449,20 @@ namespace Exercise6.Menus
             return new Menu(
                 () => "Select vehicle type",
                 () =>
-                    [
-                        .. garage.VehicleTypes.Select(type => new MenuItem(
-                            type.ToString(),
-                            action: () => ParkVehicle(garage, type)
-                        )),
-                        new MenuItem("Back"),
-                    ]
+                {
+                    List<MenuItem> items = [];
+
+                    foreach (var type in garage.VehicleTypes)
+                    {
+                        items.Add(
+                            new MenuItem(type.ToString(), action: () => ParkVehicle(garage, type))
+                        );
+                    }
+
+                    items.Add(new MenuItem("Back"));
+
+                    return [.. items];
+                }
             );
         }
 
@@ -715,26 +729,6 @@ namespace Exercise6.Menus
             {
                 return e.Message;
             }
-        }
-
-        private static string? ShowAllCars(Garage garage)
-        {
-            ParkingSpot[] occupiedSpots = garage.GetAllOccupiesSpots();
-
-            foreach (ParkingSpot parkingSpot in occupiedSpots)
-            {
-                if (parkingSpot.Vehicle is Car car)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine($"ParkingSpot: {parkingSpot.Id}");
-                    sb.AppendLine($"Brand: {car.Brand}");
-                    sb.AppendLine($"License Plate Number: {car.LicensePlateNumber.ToUpper()}");
-                    Console.WriteLine(sb.ToString());
-                }
-            }
-
-            Console.ReadKey();
-            return null;
         }
 
         private MenuItem[] GetMainMenuItems()
