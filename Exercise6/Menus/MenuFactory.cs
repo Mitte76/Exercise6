@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Exercise6.Data;
 using Exercise6.Facilities;
@@ -22,7 +21,7 @@ namespace Exercise6.Menus
             return new Menu(() => "Available Facilities", GetAvailableFacilities);
         }
 
-        private MenuItem[] GetAvailableFacilities()
+        private List<MenuItem> GetAvailableFacilities()
         {
             var list = new List<MenuItem>();
 
@@ -46,7 +45,7 @@ namespace Exercise6.Menus
             return new Menu(() => $"Garage: {garage.Name}", () => GarageSubMenus(garage));
         }
 
-        private MenuItem[] GarageSubMenus(Garage garage)
+        private List<MenuItem> GarageSubMenus(Garage garage)
         {
             string vehicleTypes = string.Join("/", garage.VehicleTypes);
             MenuItem parkVehicle =
@@ -145,7 +144,7 @@ namespace Exercise6.Menus
             return new Menu(() => "Found Vehicles", () => SearchResults(garage, licensePlate));
         }
 
-        private static MenuItem[] SearchResults(Garage garage, string licensePlate)
+        private static List<MenuItem> SearchResults(Garage garage, string licensePlate)
         {
             var vehicles = new List<MenuItem>();
 
@@ -187,7 +186,7 @@ namespace Exercise6.Menus
 
             vehicles.Add(new MenuItem("Back"));
 
-            return [.. vehicles];
+            return vehicles;
         }
 
         private static Menu SearchByCriteria(Garage garage)
@@ -304,18 +303,23 @@ namespace Exercise6.Menus
                 }
             }
 
-            string extras =
-                "Results matching the following criteria:\n"
-                + string.Join("\n", criterias.Select(c => $"{c.Key}: {c.Value}"));
+            StringBuilder extras = new StringBuilder();
+            foreach (var item in criterias)
+            {
+                extras.AppendLine($"{item.Key}: {item.Value}");
+            }
+            //string extras =
+            //    "Results matching the following criteria:\n"
+            //    + string.Join("\n", criterias.Select(c => $"{c.Key}: {c.Value}"));
 
             return new Menu(
                 () => "Search Results",
                 () => SearchByCriteriaResults(garage, criterias),
-                extra: () => extras
+                extra: () => extras.ToString()
             );
         }
 
-        private static MenuItem[] SearchByCriteriaResults(
+        private static List<MenuItem> SearchByCriteriaResults(
             Garage garage,
             Dictionary<string, string> criteria
         )
@@ -468,13 +472,20 @@ namespace Exercise6.Menus
             return new Menu(
                 () => "Select vehicle type",
                 () =>
-                    [
-                        .. garage.VehicleTypes.Select(type => new MenuItem(
-                            type.ToString(),
-                            action: () => ParkVehicle(garage, type)
-                        )),
-                        new MenuItem("Back"),
-                    ]
+                {
+                    List<MenuItem> items = [];
+
+                    foreach (var type in garage.VehicleTypes)
+                    {
+                        items.Add(
+                            new MenuItem(type.ToString(), action: () => ParkVehicle(garage, type))
+                        );
+                    }
+
+                    items.Add(new MenuItem("Back"));
+
+                    return [.. items];
+                }
             );
         }
 
@@ -597,7 +608,7 @@ namespace Exercise6.Menus
             return sb.ToString().TrimEnd();
         }
 
-        private static MenuItem[] EditVehicleSubMenu(ParkingSpot spot)
+        private static List<MenuItem> EditVehicleSubMenu(ParkingSpot spot)
         {
             return
             [
@@ -743,7 +754,7 @@ namespace Exercise6.Menus
             }
         }
 
-        private MenuItem[] GetMainMenuItems()
+        private List<MenuItem> GetMainMenuItems()
         {
             var list = new List<MenuItem>();
 
@@ -762,10 +773,10 @@ namespace Exercise6.Menus
             );
 
             list.Add(new MenuItem("Exit"));
-            return list.ToArray();
+            return list;
         }
 
-        private MenuItem[] GetDatabaseOptions()
+        private List<MenuItem> GetDatabaseOptions()
         {
             var list = new List<MenuItem>
             {
@@ -779,10 +790,10 @@ namespace Exercise6.Menus
                 ),
                 new MenuItem("Back"),
             };
-            return [.. list];
+            return list;
         }
 
-        private MenuItem[] GetBackupMenuItems()
+        private List<MenuItem> GetBackupMenuItems()
         {
             string[] availableFiles = DataHandler.GetAvailableBackups();
             var items = new List<MenuItem>();
@@ -796,7 +807,7 @@ namespace Exercise6.Menus
                 );
             }
             items.Add(new MenuItem("Back"));
-            return [.. items];
+            return items;
         }
 
         private Menu CreateFacilityMenu()
@@ -804,7 +815,7 @@ namespace Exercise6.Menus
             return new Menu(() => "Add Facility", GetFacilityMenuItems);
         }
 
-        private MenuItem[] GetFacilityMenuItems()
+        private List<MenuItem> GetFacilityMenuItems()
         {
             return
             [
