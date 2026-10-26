@@ -43,7 +43,10 @@ namespace Exercise6.Menus
 
         private Menu FacilityMenu(Garage garage)
         {
-            return new Menu(() => $"Garage: {garage.Name}", () => GarageSubMenus(garage));
+            return new Menu(
+                () => $"{garage.GetType().Name}: {garage.Name}",
+                () => GarageSubMenus(garage)
+            );
         }
 
         private List<MenuItem> GarageSubMenus(Garage garage)
