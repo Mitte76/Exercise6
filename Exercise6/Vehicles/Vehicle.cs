@@ -52,49 +52,94 @@ namespace Exercise6.Vehicles
             return string.IsNullOrWhiteSpace(input) ? null : input;
         }
 
-        public static string ValidateLicensePlateNumber(string registratíonNumber)
-        {
-            string pattern = @"^[A-HJ-PR-UW-Z]{3}\s?[0-9]{2}[A-HJ-PR-UW-Z0-9]$";
-            Regex regex = new(pattern, RegexOptions.IgnoreCase);
-
-            if (string.IsNullOrEmpty(registratíonNumber) || !regex.IsMatch(registratíonNumber))
-                throw new ArgumentException("Licence plate number is not valid");
-
-            return registratíonNumber.ToUpper();
-        }
-
         internal static string ValidateLicensePlateNumber(
-            string registratíonNumber,
-            List<Garage> facilities
+            string registrationNumber,
+            List<Garage>? facilities = null,
+            Vehicle? vehicleBeingUpdated = null
         )
         {
-            string validatedNumber = ValidateLicensePlateNumber(registratíonNumber);
+            if (string.IsNullOrWhiteSpace(registrationNumber))
+                throw new ArgumentException("License plate cannot be empty.");
 
-            foreach (Garage facility in facilities)
+            string normalized = registrationNumber.Trim().Replace(" ", "").ToUpperInvariant();
+
+            if (!Regex.IsMatch(normalized, @"^[A-HJ-PR-UW-Z]{3}[0-9]{2}[A-HJ-PR-UW-Z0-9]$"))
+                throw new ArgumentException("Licence plate number is not valid");
+
+            if (facilities != null)
             {
-                foreach (ParkingSpot parkingSpot in facility.ParkingSpots)
+                foreach (Garage facility in facilities)
                 {
-                    string? existingNumber = parkingSpot.Vehicle switch
+                    foreach (ParkingSpot spot in facility.ParkingSpots)
                     {
-                        Car car => car.LicensePlateNumber,
-                        Bus bus => bus.LicensePlateNumber,
-                        Motorcycle motorcycle => motorcycle.LicensePlateNumber,
-                        _ => null,
-                    };
+                        if (
+                            spot.Vehicle is null
+                            || ReferenceEquals(spot.Vehicle, vehicleBeingUpdated)
+                        )
+                            continue;
 
-                    if (
-                        existingNumber?.Equals(validatedNumber, StringComparison.OrdinalIgnoreCase)
-                        == true
-                    )
-                    {
-                        throw new ArgumentException(
-                            "A vehicle with that license plate already exists"
-                        );
+                        string? existing = spot.Vehicle switch
+                        {
+                            Car car => car.LicensePlateNumber,
+                            Bus bus => bus.LicensePlateNumber,
+                            Motorcycle motorcycle => motorcycle.LicensePlateNumber,
+                            _ => null,
+                        };
+
+                        if (string.Equals(existing, normalized, StringComparison.OrdinalIgnoreCase))
+                            throw new ArgumentException(
+                                "A vehicle with that license plate already exists"
+                            );
                     }
                 }
             }
 
-            return validatedNumber;
+            return normalized;
         }
+
+        //public static string ValidateLicensePlateNumber(string registratíonNumber)
+        //{
+        //    string pattern = @"^[A-HJ-PR-UW-Z]{3}\s?[0-9]{2}[A-HJ-PR-UW-Z0-9]$";
+        //    Regex regex = new(pattern, RegexOptions.IgnoreCase);
+
+        //    if (string.IsNullOrEmpty(registratíonNumber) || !regex.IsMatch(registratíonNumber))
+        //        throw new ArgumentException("Licence plate number is not valid");
+
+        //    return registratíonNumber.ToUpper();
+        //}
+
+        //internal static string ValidateLicensePlateNumber(
+        //    string registratíonNumber,
+        //    List<Garage> facilities
+        //)
+        //{
+        //    string validatedNumber = ValidateLicensePlateNumber(registratíonNumber);
+
+        //    foreach (Garage facility in facilities)
+        //    {
+        //        foreach (ParkingSpot parkingSpot in facility.ParkingSpots)
+        //        {
+        //            string? existingNumber = parkingSpot.Vehicle switch
+        //            {
+        //                Car car => car.LicensePlateNumber,
+        //                Bus bus => bus.LicensePlateNumber,
+        //                Motorcycle motorcycle => motorcycle.LicensePlateNumber,
+        //                _ => null,
+        //            };
+
+        //            if (
+        //                existingNumber?.Equals(validatedNumber, StringComparison.OrdinalIgnoreCase)
+        //                == true
+        //            )
+        //            {
+        //                throw new ArgumentException(
+        //                    "A vehicle with that license plate already exists"
+        //                );
+        //            }
+        //        }
+        //    }
+
+        //    return validatedNumber;
+        //}
     }
 }

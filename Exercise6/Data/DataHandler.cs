@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -62,13 +63,13 @@ namespace Exercise6.Data
                 await JsonSerializer.SerializeAsync(createStream, facilities, options);
                 return $"Data written to file {path}";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "Something went wrong";
             }
         }
 
-        internal static string[] GetAvailableBackups()
+        internal static List<string> GetAvailableBackups()
         {
             string solutionDirectory = Path.GetFullPath(
                 Path.Combine(AppContext.BaseDirectory, @"..\..\..\")
@@ -82,9 +83,9 @@ namespace Exercise6.Data
                 return [];
             }
 
-            string[] files = Directory.GetFiles(directory);
+            List<String> files = [.. Directory.GetFiles(directory)];
 
-            return files;
+            return [.. files];
         }
 
         internal static async Task<string?> ReadFromDatabase(

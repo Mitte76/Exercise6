@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Exercise6.Data;
 using Exercise6.Facilities;
+using Exercise6.Services;
 using Exercise6.Vehicles;
 
 namespace Exercise6.Menus
@@ -64,6 +66,10 @@ namespace Exercise6.Menus
                 ),
                 new MenuItem($"Find {vehicleTypes}", submenu: GetVehicle(garage)),
                 parkVehicle,
+                new MenuItem(
+                    "Populate garage with random vehicles",
+                    action: () => GaragePopulationService.PopulateGarage(garage, _facilities)
+                ),
                 new MenuItem("Back"),
             ];
         }
@@ -80,7 +86,7 @@ namespace Exercise6.Menus
             return result.ToString().TrimEnd();
         }
 
-        private static Menu GetVehicle(Garage garage)
+        private Menu GetVehicle(Garage garage)
         {
             return new Menu(
                 () => "Find Vehicle",
@@ -97,7 +103,7 @@ namespace Exercise6.Menus
             );
         }
 
-        private static Menu SearchVehicleMenu(Garage garage)
+        private Menu SearchVehicleMenu(Garage garage)
         {
             return new Menu(
                 () => "Search Vehicle",
@@ -120,7 +126,7 @@ namespace Exercise6.Menus
             );
         }
 
-        private static Menu? SearchByPlate(Garage garage)
+        private Menu? SearchByPlate(Garage garage)
         {
             Console.WriteLine("Enter license plate. Leave empty to cancel.");
 
@@ -144,7 +150,7 @@ namespace Exercise6.Menus
             return new Menu(() => "Found Vehicles", () => SearchResults(garage, licensePlate));
         }
 
-        private static List<MenuItem> SearchResults(Garage garage, string licensePlate)
+        private List<MenuItem> SearchResults(Garage garage, string licensePlate)
         {
             var vehicles = new List<MenuItem>();
 
@@ -189,11 +195,11 @@ namespace Exercise6.Menus
             return vehicles;
         }
 
-        private static Menu SearchByCriteria(Garage garage)
+        private Menu SearchByCriteria(Garage garage)
         {
             var criterias = new Dictionary<string, string>();
 
-            string[] availableCriteria =
+            List<string> availableCriteria =
             [
                 "Brand",
                 "Color",
@@ -267,10 +273,10 @@ namespace Exercise6.Menus
                 {
                     if (input.Length == 0)
                         break;
-                    string[] parts = input.Split(':', 2);
+                    List<string> parts = input.Split(':', 2).ToList();
 
                     if (
-                        parts.Length == 2
+                        parts.Count == 2
                         && !string.IsNullOrWhiteSpace(parts[0])
                         && !string.IsNullOrWhiteSpace(parts[1])
                     )
@@ -319,7 +325,7 @@ namespace Exercise6.Menus
             );
         }
 
-        private static List<MenuItem> SearchByCriteriaResults(
+        private List<MenuItem> SearchByCriteriaResults(
             Garage garage,
             Dictionary<string, string> criteria
         )
@@ -402,7 +408,7 @@ namespace Exercise6.Menus
             return [.. results];
         }
 
-        private static Menu GetAllVehicles(Garage garage)
+        private Menu GetAllVehicles(Garage garage)
         {
             int currentPage = 0;
             int totalPages = 1;
@@ -525,7 +531,7 @@ namespace Exercise6.Menus
             }
         }
 
-        private static Menu EditVehicle(ParkingSpot parkingSpot)
+        private Menu EditVehicle(ParkingSpot parkingSpot)
         {
             return new Menu(
                 () => GetVehicleHeader(parkingSpot.Vehicle!),
@@ -608,7 +614,7 @@ namespace Exercise6.Menus
             return sb.ToString().TrimEnd();
         }
 
-        private static List<MenuItem> EditVehicleSubMenu(ParkingSpot spot)
+        private List<MenuItem> EditVehicleSubMenu(ParkingSpot spot)
         {
             return
             [
@@ -635,7 +641,7 @@ namespace Exercise6.Menus
             ];
         }
 
-        private static MenuItem[] GetVehicleSpecificMenuItems(Vehicle vehicle)
+        private List<MenuItem> GetVehicleSpecificMenuItems(Vehicle vehicle)
         {
             return vehicle switch
             {
@@ -645,7 +651,12 @@ namespace Exercise6.Menus
                         "Change License Plate Number",
                         action: () =>
                             EditVehicleProperty(
-                                value => car.LicensePlateNumber = value,
+                                value =>
+                                    car.LicensePlateNumber = Vehicle.ValidateLicensePlateNumber(
+                                        value,
+                                        _facilities,
+                                        car
+                                    ),
                                 "license plate number"
                             )
                     ),
@@ -656,7 +667,12 @@ namespace Exercise6.Menus
                         "Change License Plate Number",
                         action: () =>
                             EditVehicleProperty(
-                                value => bus.LicensePlateNumber = value,
+                                value =>
+                                    bus.LicensePlateNumber = Vehicle.ValidateLicensePlateNumber(
+                                        value,
+                                        _facilities,
+                                        bus
+                                    ),
                                 "license plate number"
                             )
                     ),
@@ -675,7 +691,13 @@ namespace Exercise6.Menus
                         "Change License Plate Number",
                         action: () =>
                             EditVehicleProperty(
-                                value => motorcycle.LicensePlateNumber = value,
+                                value =>
+                                    motorcycle.LicensePlateNumber =
+                                        Vehicle.ValidateLicensePlateNumber(
+                                            value,
+                                            _facilities,
+                                            motorcycle
+                                        ),
                                 "license plate number"
                             )
                     ),
@@ -795,7 +817,7 @@ namespace Exercise6.Menus
 
         private List<MenuItem> GetBackupMenuItems()
         {
-            string[] availableFiles = DataHandler.GetAvailableBackups();
+            List<string> availableFiles = DataHandler.GetAvailableBackups();
             var items = new List<MenuItem>();
             foreach (var item in availableFiles)
             {
