@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Exercise6.Data;
 using Exercise6.Facilities;
@@ -273,7 +272,8 @@ namespace Exercise6.Menus
                 {
                     if (input.Length == 0)
                         break;
-                    List<string> parts = input.Split(':', 2).ToList();
+
+                    List<string> parts = [.. input.Split(':', 2)];
 
                     if (
                         parts.Count == 2
