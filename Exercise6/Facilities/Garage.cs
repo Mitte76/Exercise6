@@ -67,13 +67,13 @@ namespace Exercise6.Facilities
             private set => parkingSpots = value;
         }
 
-        public Dictionary<VehicleType, int> GetVehicleTypeCounts()
+        public List<(VehicleType Type, int Count)> GetVehicleTypeCounts()
         {
-            var counts = new Dictionary<VehicleType, int>();
+            List<(VehicleType Type, int Count)> counts = [];
 
             foreach (VehicleType type in VehicleTypes)
             {
-                counts[type] = 0;
+                counts.Add((type, 0));
             }
 
             foreach (ParkingSpot parkingSpot in ParkingSpots)
@@ -91,7 +91,8 @@ namespace Exercise6.Facilities
                     _ => throw new ArgumentOutOfRangeException(),
                 };
 
-                counts[type]++;
+                int countIndex = counts.FindIndex(count => count.Type == type);
+                counts[countIndex] = (type, counts[countIndex].Count + 1);
             }
 
             return counts;

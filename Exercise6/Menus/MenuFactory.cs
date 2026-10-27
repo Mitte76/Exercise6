@@ -80,9 +80,9 @@ namespace Exercise6.Menus
         {
             StringBuilder result = new();
 
-            foreach (KeyValuePair<VehicleType, int> count in garage.GetVehicleTypeCounts())
+            foreach (var count in garage.GetVehicleTypeCounts())
             {
-                result.AppendLine($"{count.Key}: {count.Value}");
+                result.AppendLine($"{count.Type}: {count.Count}");
             }
 
             return result.ToString().TrimEnd();
@@ -199,7 +199,7 @@ namespace Exercise6.Menus
 
         private Menu SearchByCriteria(Garage garage)
         {
-            var criterias = new Dictionary<string, string>();
+            List<(string Name, string Value)> criterias = [];
 
             List<string> availableCriteria =
             [
@@ -228,7 +228,7 @@ namespace Exercise6.Menus
                     Console.WriteLine("\nSelected criterias:");
                     foreach (var criteria in criterias)
                     {
-                        Console.WriteLine($"{criteria.Key}: {criteria.Value}");
+                        Console.WriteLine($"{criteria.Name}: {criteria.Value}");
                     }
                     Console.ResetColor();
                 }
@@ -298,13 +298,24 @@ namespace Exercise6.Menus
 
                         if (criterionName != null)
                         {
-                            if (criterias.TryGetValue(criterionName, out string? currentCriterie))
+                            int criterionIndex = criterias.FindIndex(criteria =>
+                                criteria.Name.Equals(
+                                    criterionName,
+                                    StringComparison.OrdinalIgnoreCase
+                                )
+                            );
+
+                            if (criterionIndex >= 0)
                             {
-                                criterias[criterionName] = $"{currentCriterie},{parts[1].Trim()}";
+                                var currentCriterion = criterias[criterionIndex];
+                                criterias[criterionIndex] = (
+                                    currentCriterion.Name,
+                                    $"{currentCriterion.Value},{parts[1].Trim()}"
+                                );
                             }
                             else
                             {
-                                criterias[criterionName] = parts[1].Trim();
+                                criterias.Add((criterionName, parts[1].Trim()));
                             }
                             input = "";
                         }
@@ -315,11 +326,8 @@ namespace Exercise6.Menus
             StringBuilder extras = new StringBuilder();
             foreach (var item in criterias)
             {
-                extras.AppendLine($"{item.Key}: {item.Value}");
+                extras.AppendLine($"{item.Name}: {item.Value}");
             }
-            //string extras =
-            //    "Results matching the following criteria:\n"
-            //    + string.Join("\n", criterias.Select(c => $"{c.Key}: {c.Value}"));
 
             return new Menu(
                 () => "Search Results",
@@ -330,7 +338,7 @@ namespace Exercise6.Menus
 
         private List<MenuItem> SearchByCriteriaResults(
             Garage garage,
-            Dictionary<string, string> criteria
+            List<(string Name, string Value)> criteria
         )
         {
             var results = new List<MenuItem>();
@@ -344,7 +352,7 @@ namespace Exercise6.Menus
 
                 foreach (var criterion in criteria)
                 {
-                    string? value = criterion.Key switch
+                    string? value = criterion.Name switch
                     {
                         "Brand" => vehicle.Brand,
                         "Color" => vehicle.Color,
