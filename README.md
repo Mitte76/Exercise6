@@ -27,3 +27,4 @@ Detta projekt är ett konsolprogram för att hantera olika typer av parkeringspl
 ## Feedback
 
 Jag vill ha feedback på projektets struktur och hur väl klassansvaret är fördelat.
+PR2
