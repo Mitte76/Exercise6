@@ -139,7 +139,31 @@ namespace Exercise6.Services
             return PickRandom(brands);
         }
 
-        private static T PickRandom<T>(List<T> options)
+        private static string PickRandom(List<string> options)
+        {
+            if (options.Count == 0)
+                throw new InvalidOperationException("Vehicle option lists must not be empty.");
+
+            return options[Random.Shared.Next(options.Count)];
+        }
+
+        private static int PickRandom(List<int> options)
+        {
+            if (options.Count == 0)
+                throw new InvalidOperationException("Vehicle option lists must not be empty.");
+
+            return options[Random.Shared.Next(options.Count)];
+        }
+
+        private static decimal PickRandom(List<decimal> options)
+        {
+            if (options.Count == 0)
+                throw new InvalidOperationException("Vehicle option lists must not be empty.");
+
+            return options[Random.Shared.Next(options.Count)];
+        }
+
+        private static FuelType PickRandom(List<FuelType> options)
         {
             if (options.Count == 0)
                 throw new InvalidOperationException("Vehicle option lists must not be empty.");
