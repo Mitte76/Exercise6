@@ -6,6 +6,6 @@ namespace Exercise6.Facilities
 {
     internal class Hangar(string name, int capacity) : Garage(name, capacity)
     {
-        public override List<VehicleType> VehicleTypes => [VehicleType.Airplane];
+        public override VehicleType[] VehicleTypes => [VehicleType.Airplane];
     }
 }

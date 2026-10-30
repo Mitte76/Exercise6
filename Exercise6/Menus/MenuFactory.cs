@@ -22,7 +22,7 @@ namespace Exercise6.Menus
             return new Menu(() => "Available Facilities", GetAvailableFacilities);
         }
 
-        private List<MenuItem> GetAvailableFacilities()
+        private MenuItem[] GetAvailableFacilities()
         {
             var list = new List<MenuItem>();
 
@@ -49,11 +49,11 @@ namespace Exercise6.Menus
             );
         }
 
-        private List<MenuItem> GarageSubMenus(Garage garage)
+        private MenuItem[] GarageSubMenus(Garage garage)
         {
             string vehicleTypes = string.Join("/", garage.VehicleTypes);
             MenuItem parkVehicle =
-                garage.VehicleTypes.Count == 1
+                garage.VehicleTypes.Length == 1
                     ? new MenuItem(
                         $"Park {vehicleTypes}",
                         action: () => ParkVehicle(garage, garage.VehicleTypes[0])
@@ -152,7 +152,7 @@ namespace Exercise6.Menus
             return new Menu(() => "Found Vehicles", () => SearchResults(garage, licensePlate));
         }
 
-        private List<MenuItem> SearchResults(Garage garage, string licensePlate)
+        private MenuItem[] SearchResults(Garage garage, string licensePlate)
         {
             var vehicles = new List<MenuItem>();
 
@@ -194,12 +194,12 @@ namespace Exercise6.Menus
 
             vehicles.Add(new MenuItem("Back"));
 
-            return vehicles;
+            return [.. vehicles];
         }
 
         private Menu SearchByCriteria(Garage garage)
         {
-            List<(string Name, string Value)> criterias = [];
+            Dictionary<string, string> criterias = new(StringComparer.OrdinalIgnoreCase);
 
             List<string> availableCriteria =
             [
@@ -228,7 +228,7 @@ namespace Exercise6.Menus
                     Console.WriteLine("\nSelected criterias:");
                     foreach (var criteria in criterias)
                     {
-                        Console.WriteLine($"{criteria.Name}: {criteria.Value}");
+                        Console.WriteLine($"{criteria.Key}: {criteria.Value}");
                     }
                     Console.ResetColor();
                 }
@@ -271,15 +271,33 @@ namespace Exercise6.Menus
                 {
                     input += key.KeyChar;
                 }
+                else if (key.Key == ConsoleKey.Tab)
+                {
+                    if (input.Length == 0)
+                        break;
+
+                    //TODO Working here!!!
+                    if (suggestions.Count == 1)
+                    {
+                        input = $"{suggestions[0]}: ";
+                    }
+                    else if (suggestions.Count > 2)
+                    {
+                        if (input == $"{suggestions[0]}: ")
+                        {
+                            input = suggestions[1];
+                        }
+                    }
+                }
                 else if (key.Key == ConsoleKey.Enter)
                 {
                     if (input.Length == 0)
                         break;
 
-                    List<string> parts = [.. input.Split(':', 2)];
+                    string[] parts = input.Split(':', 2);
 
                     if (
-                        parts.Count == 2
+                        parts.Length == 2
                         && !string.IsNullOrWhiteSpace(parts[0])
                         && !string.IsNullOrWhiteSpace(parts[1])
                     )
@@ -298,25 +316,12 @@ namespace Exercise6.Menus
 
                         if (criterionName != null)
                         {
-                            int criterionIndex = criterias.FindIndex(criteria =>
-                                criteria.Name.Equals(
-                                    criterionName,
-                                    StringComparison.OrdinalIgnoreCase
-                                )
-                            );
-
-                            if (criterionIndex >= 0)
-                            {
-                                var currentCriterion = criterias[criterionIndex];
-                                criterias[criterionIndex] = (
-                                    currentCriterion.Name,
-                                    $"{currentCriterion.Value},{parts[1].Trim()}"
-                                );
-                            }
+                            string value = parts[1].Trim();
+                            if (criterias.TryGetValue(criterionName, out string? currentValue))
+                                criterias[criterionName] = $"{currentValue},{value}";
                             else
-                            {
-                                criterias.Add((criterionName, parts[1].Trim()));
-                            }
+                                criterias.Add(criterionName, value);
+
                             input = "";
                         }
                     }
@@ -326,7 +331,7 @@ namespace Exercise6.Menus
             StringBuilder extras = new StringBuilder();
             foreach (var item in criterias)
             {
-                extras.AppendLine($"{item.Name}: {item.Value}");
+                extras.AppendLine($"{item.Key}: {item.Value}");
             }
 
             return new Menu(
@@ -336,9 +341,9 @@ namespace Exercise6.Menus
             );
         }
 
-        private List<MenuItem> SearchByCriteriaResults(
+        private MenuItem[] SearchByCriteriaResults(
             Garage garage,
-            List<(string Name, string Value)> criteria
+            Dictionary<string, string> criteria
         )
         {
             var results = new List<MenuItem>();
@@ -352,7 +357,7 @@ namespace Exercise6.Menus
 
                 foreach (var criterion in criteria)
                 {
-                    string? value = criterion.Name switch
+                    string? value = criterion.Key switch
                     {
                         "Brand" => vehicle.Brand,
                         "Color" => vehicle.Color,
@@ -625,7 +630,7 @@ namespace Exercise6.Menus
             return sb.ToString().TrimEnd();
         }
 
-        private List<MenuItem> EditVehicleSubMenu(ParkingSpot spot)
+        private MenuItem[] EditVehicleSubMenu(ParkingSpot spot)
         {
             return
             [
@@ -787,7 +792,7 @@ namespace Exercise6.Menus
             }
         }
 
-        private List<MenuItem> GetMainMenuItems()
+        private MenuItem[] GetMainMenuItems()
         {
             var list = new List<MenuItem>();
 
@@ -806,10 +811,10 @@ namespace Exercise6.Menus
             );
 
             list.Add(new MenuItem("Exit"));
-            return list;
+            return [.. list];
         }
 
-        private List<MenuItem> GetDatabaseOptions()
+        private MenuItem[] GetDatabaseOptions()
         {
             var list = new List<MenuItem>
             {
@@ -823,12 +828,12 @@ namespace Exercise6.Menus
                 ),
                 new MenuItem("Back"),
             };
-            return list;
+            return [.. list];
         }
 
-        private List<MenuItem> GetBackupMenuItems()
+        private MenuItem[] GetBackupMenuItems()
         {
-            List<string> availableFiles = DataHandler.GetAvailableBackups();
+            string[] availableFiles = DataHandler.GetAvailableBackups();
             var items = new List<MenuItem>();
             foreach (var item in availableFiles)
             {
@@ -840,7 +845,7 @@ namespace Exercise6.Menus
                 );
             }
             items.Add(new MenuItem("Back"));
-            return items;
+            return [.. items];
         }
 
         private Menu CreateFacilityMenu()
@@ -848,7 +853,7 @@ namespace Exercise6.Menus
             return new Menu(() => "Add Facility", GetFacilityMenuItems);
         }
 
-        private List<MenuItem> GetFacilityMenuItems()
+        private MenuItem[] GetFacilityMenuItems()
         {
             return
             [

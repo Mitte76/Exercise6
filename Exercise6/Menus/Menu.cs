@@ -6,14 +6,14 @@ namespace Exercise6.Menus
 {
     public class Menu(
         Func<string> menuName,
-        Func<List<MenuItem>> menuItems,
+        Func<MenuItem[]> menuItems,
         bool isMainMenu = false,
         Func<string>? extra = null
     )
     {
         private readonly Func<string> _menuName = menuName;
 
-        private readonly Func<List<MenuItem>> _items = menuItems;
+        private readonly Func<MenuItem[]> _items = menuItems;
 
         private readonly bool _isMainMenu = isMainMenu;
 
@@ -27,7 +27,7 @@ namespace Exercise6.Menus
 
             while (true)
             {
-                List<MenuItem> items = _items();
+                MenuItem[] items = _items();
                 ShowMainMenu(items, selectedIndex, _message, _extra?.Invoke());
                 _message = null;
 
@@ -83,7 +83,7 @@ namespace Exercise6.Menus
         }
 
         public void ShowMainMenu(
-            List<MenuItem> items,
+            MenuItem[] items,
             int selectedIndex,
             string? message,
             string? extra
@@ -111,10 +111,10 @@ namespace Exercise6.Menus
 
             Console.ResetColor();
             if (items != null)
-                for (int i = 0; i < items.Count; i++)
+                for (int i = 0; i < items.Length; i++)
                 {
                     bool selected = i == selectedIndex;
-                    int menuNumber = (i + 1) % items.Count;
+                    int menuNumber = (i + 1) % items.Length;
                     PrintMenuItem(menuNumber, items[i].Text, selected);
                 }
 
@@ -135,7 +135,7 @@ namespace Exercise6.Menus
 
         private bool HandleInput(
             ConsoleKeyInfo input,
-            List<MenuItem> items,
+            MenuItem[] items,
             int currentIndex,
             out int selectedIndex
         )
@@ -146,12 +146,12 @@ namespace Exercise6.Menus
             {
                 case ConsoleKey.DownArrow:
                     selectedIndex++;
-                    selectedIndex = (currentIndex + 1) % items.Count;
+                    selectedIndex = (currentIndex + 1) % items.Length;
                     currentInput = "";
                     return false;
                 case ConsoleKey.UpArrow:
                     selectedIndex--;
-                    selectedIndex = (currentIndex - 1 + items.Count) % items.Count;
+                    selectedIndex = (currentIndex - 1 + items.Length) % items.Length;
                     currentInput = "";
 
                     return false;
@@ -171,7 +171,7 @@ namespace Exercise6.Menus
                         currentInput != ""
                         && int.TryParse(currentInput, out int currentNumber)
                         && currentNumber >= 1
-                        && currentNumber <= items.Count
+                        && currentNumber <= items.Length
                     )
                     {
                         selectedIndex = currentNumber - 1;
@@ -192,8 +192,8 @@ namespace Exercise6.Menus
                     currentInput += input.KeyChar;
                     if (int.TryParse(currentInput, out int current))
                     {
-                        if (current < items.Count && current >= 0)
-                            selectedIndex = (current + items.Count - 1) % items.Count;
+                        if (current < items.Length && current >= 0)
+                            selectedIndex = (current + items.Length - 1) % items.Length;
                         else
                         {
                             selectedIndex = 0;

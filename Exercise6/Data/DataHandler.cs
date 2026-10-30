@@ -68,7 +68,7 @@ namespace Exercise6.Data
             }
         }
 
-        internal static List<string> GetAvailableBackups()
+        internal static string[] GetAvailableBackups()
         {
             string solutionDirectory = Path.GetFullPath(
                 Path.Combine(AppContext.BaseDirectory, @"..\..\..\")
@@ -82,9 +82,7 @@ namespace Exercise6.Data
                 return [];
             }
 
-            List<String> files = [.. Directory.GetFiles(directory)];
-
-            return [.. files];
+            return Directory.GetFiles(directory);
         }
 
         internal static async Task<string?> ReadFromDatabase(

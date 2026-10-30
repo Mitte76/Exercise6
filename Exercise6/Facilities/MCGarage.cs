@@ -6,6 +6,6 @@ namespace Exercise6.Facilities
 {
     internal class MCGarage(string name, int capacity) : Garage(name, capacity)
     {
-        public override List<VehicleType> VehicleTypes => [VehicleType.Motorcycle];
+        public override VehicleType[] VehicleTypes => [VehicleType.Motorcycle];
     }
 }

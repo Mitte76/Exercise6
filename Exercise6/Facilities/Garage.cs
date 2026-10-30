@@ -12,7 +12,7 @@ namespace Exercise6.Facilities
     [JsonDerivedType(typeof(MCGarage), "MCGarage")]
     internal abstract class Garage
     {
-        public abstract List<VehicleType> VehicleTypes { get; }
+        public abstract VehicleType[] VehicleTypes { get; }
 
         public string Name { get; private set; }
         public int Capacity { get; private set; }

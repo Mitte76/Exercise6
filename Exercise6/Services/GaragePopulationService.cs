@@ -10,36 +10,18 @@ namespace Exercise6.Services
         private const string LicensePlateLetters = "ABCDEFGHJKLMNOPRSTUWXYZ";
         private const string LicensePlateLastCharacters = LicensePlateLetters + "0123456789";
 
-        private static readonly List<string> CarBrands =
-        [
-            "Volvo",
-            "Saab",
-            "Toyota",
-            "Honda",
-            "BMW",
-        ];
-        private static readonly List<string> BusBrands = ["Volvo", "Scania", "Setra", "Iveco"];
-        private static readonly List<string> MotorcycleBrands =
+        private static readonly string[] CarBrands = ["Volvo", "Saab", "Toyota", "Honda", "BMW"];
+        private static readonly string[] BusBrands = ["Volvo", "Scania", "Setra", "Iveco"];
+        private static readonly string[] MotorcycleBrands =
         [
             "Honda",
             "Yamaha",
             "Suzuki",
             "Kawasaki",
         ];
-        private static readonly List<string> BoatBrands =
-        [
-            "Bayliner",
-            "SeaRay",
-            "Beneteau, Buster",
-        ];
-        private static readonly List<string> AirplaneBrands =
-        [
-            "Boeing",
-            "Airbus",
-            "Cessna",
-            "Embraer",
-        ];
-        private static readonly List<string> Colors =
+        private static readonly string[] BoatBrands = ["Bayliner", "SeaRay", "Beneteau, Buster"];
+        private static readonly string[] AirplaneBrands = ["Boeing", "Airbus", "Cessna", "Embraer"];
+        private static readonly string[] Colors =
         [
             "White",
             "Black",
@@ -49,15 +31,15 @@ namespace Exercise6.Services
             "Yellow",
             "Silver",
         ];
-        private static readonly List<int> BusSeatCounts = [10, 20, 30, 40, 50, 60];
-        private static readonly List<int> MotorcycleEngineVolumes = [125, 250, 600, 750, 1000];
-        private static readonly List<decimal> BoatLengths = [4.5m, 6.5m, 8m, 10m];
-        private static readonly List<int> AirplaneEngineCounts = [1, 2, 4];
-        private static readonly List<FuelType> FuelTypes = [FuelType.Diesel, FuelType.Gasoline];
+        private static readonly int[] BusSeatCounts = [10, 20, 30, 40, 50, 60];
+        private static readonly int[] MotorcycleEngineVolumes = [125, 250, 600, 750, 1000];
+        private static readonly decimal[] BoatLengths = [4.5m, 6.5m, 8m, 10m];
+        private static readonly int[] AirplaneEngineCounts = [1, 2, 4];
+        private static readonly FuelType[] FuelTypes = [FuelType.Diesel, FuelType.Gasoline];
 
         internal static string PopulateGarage(Garage garage, List<Garage> facilities)
         {
-            if (garage.VehicleTypes.Count == 0)
+            if (garage.VehicleTypes.Length == 0)
                 throw new InvalidOperationException(
                     "The garage does not support any vehicle types."
                 );
@@ -69,7 +51,7 @@ namespace Exercise6.Services
             for (int i = 0; i < vehiclesToAdd; i++)
             {
                 VehicleType type = garage.VehicleTypes[
-                    Random.Shared.Next(garage.VehicleTypes.Count)
+                    Random.Shared.Next(garage.VehicleTypes.Length)
                 ];
                 Vehicle vehicle = CreateVehicle(type, facilities);
                 garage.ParkCar(vehicle);
@@ -122,7 +104,7 @@ namespace Exercise6.Services
 
         private static string GetRandomBrand(VehicleType type)
         {
-            List<string> brands = type switch
+            string[] brands = type switch
             {
                 VehicleType.Airplane => AirplaneBrands,
                 VehicleType.Boat => BoatBrands,
@@ -139,36 +121,12 @@ namespace Exercise6.Services
             return PickRandom(brands);
         }
 
-        private static string PickRandom(List<string> options)
+        private static T PickRandom<T>(T[] options)
         {
-            if (options.Count == 0)
+            if (options.Length == 0)
                 throw new InvalidOperationException("Vehicle option lists must not be empty.");
 
-            return options[Random.Shared.Next(options.Count)];
-        }
-
-        private static int PickRandom(List<int> options)
-        {
-            if (options.Count == 0)
-                throw new InvalidOperationException("Vehicle option lists must not be empty.");
-
-            return options[Random.Shared.Next(options.Count)];
-        }
-
-        private static decimal PickRandom(List<decimal> options)
-        {
-            if (options.Count == 0)
-                throw new InvalidOperationException("Vehicle option lists must not be empty.");
-
-            return options[Random.Shared.Next(options.Count)];
-        }
-
-        private static FuelType PickRandom(List<FuelType> options)
-        {
-            if (options.Count == 0)
-                throw new InvalidOperationException("Vehicle option lists must not be empty.");
-
-            return options[Random.Shared.Next(options.Count)];
+            return options[Random.Shared.Next(options.Length)];
         }
 
         private static string CreateUniqueLicensePlate(List<Garage> facilities)
