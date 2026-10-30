@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Exercise6.Vehicles;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
-using Exercise6.Vehicles;
 
 namespace Exercise6.Facilities
 {
@@ -10,78 +11,35 @@ namespace Exercise6.Facilities
     [JsonDerivedType(typeof(Hangar), "Hangar")]
     [JsonDerivedType(typeof(Marina), "Marina")]
     [JsonDerivedType(typeof(MCGarage), "MCGarage")]
-    internal abstract class Garage
+    internal abstract class Garage(string name, int capacity)
     {
         public abstract VehicleType[] VehicleTypes { get; }
 
-        public string Name { get; private set; }
+        public string Name { get; private set; } = name;
         public int Capacity { get; private set; }
 
-        public int OccupiedSlots
-        {
-            get
-            {
-                int count = 0;
-                foreach (ParkingSpot spot in parkingSpots)
-                {
-                    if (spot.IsOccupied)
-                        count++;
-                }
-                return count;
-            }
-        }
+        public int OccupiedSlots => parkingSpots.Count(s => s.IsOccupied);
 
-        public int AvailableSlots
-        {
-            get
-            {
-                int count = 0;
-                foreach (ParkingSpot spot in parkingSpots)
-                {
-                    if (!spot.IsOccupied)
-                        count++;
-                }
-                return count;
-            }
-        }
+        public int AvailableSlots => parkingSpots.Count(s => !s.IsOccupied);
 
-        private List<ParkingSpot> parkingSpots;
-
-        protected Garage(string name, int capacity)
-        {
-            parkingSpots = [];
-            Capacity = capacity;
-
-            for (int i = 0; i < capacity; i++)
-            {
-                parkingSpots.Add(new ParkingSpot(i + 1));
-            }
-
-            Name = name;
-        }
+        private ParkingSpot[] parkingSpots = [.. Enumerable
+            .Range(0, capacity)
+            .Select(id => new ParkingSpot(id))];
 
         [JsonInclude]
-        public List<ParkingSpot> ParkingSpots
+        public ParkingSpot[] ParkingSpots
         {
             get => parkingSpots;
             private set => parkingSpots = value;
         }
 
-        public List<(VehicleType Type, int Count)> GetVehicleTypeCounts()
+        public Dictionary<VehicleType, int> GetVehicleTypeCounts()
         {
-            List<(VehicleType Type, int Count)> counts = [];
+            var counts = VehicleTypes.ToDictionary(type => type, _ => 0);
 
-            foreach (VehicleType type in VehicleTypes)
-            {
-                counts.Add((type, 0));
-            }
-
-            foreach (ParkingSpot parkingSpot in ParkingSpots)
-            {
-                if (parkingSpot.Vehicle is null)
-                    continue;
-
-                VehicleType type = parkingSpot.Vehicle switch
+            foreach (var group in ParkingSpots
+                .Where(spot => spot.Vehicle is not null)
+                .GroupBy(spot => spot.Vehicle switch
                 {
                     Car => VehicleType.Car,
                     Bus => VehicleType.Bus,
@@ -89,10 +47,9 @@ namespace Exercise6.Facilities
                     Boat => VehicleType.Boat,
                     Airplane => VehicleType.Airplane,
                     _ => throw new ArgumentOutOfRangeException(),
-                };
-
-                int countIndex = counts.FindIndex(count => count.Type == type);
-                counts[countIndex] = (type, counts[countIndex].Count + 1);
+                }))
+            {
+                counts[group.Key] = group.Count();
             }
 
             return counts;
@@ -100,23 +57,12 @@ namespace Exercise6.Facilities
 
         public ParkingSpot? GetFirstAvailableParkignSpot()
         {
-            foreach (ParkingSpot spot in parkingSpots)
-            {
-                if (!spot.IsOccupied)
-                    return spot;
-            }
-            return null;
+            return parkingSpots.FirstOrDefault(s=> !s.IsOccupied);
         }
 
         public List<ParkingSpot> GetAllOccupiesSpots()
         {
-            List<ParkingSpot> occupiedSpots = [];
-            foreach (ParkingSpot parkingSpot in parkingSpots)
-            {
-                if (parkingSpot.IsOccupied)
-                    occupiedSpots.Add(parkingSpot);
-            }
-            return occupiedSpots;
+            return [.. parkingSpots.Where(s => s.IsOccupied)];
         }
 
         public string ParkCar(Vehicle vehicle)

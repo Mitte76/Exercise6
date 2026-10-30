@@ -82,7 +82,7 @@ namespace Exercise6.Menus
 
             foreach (var count in garage.GetVehicleTypeCounts())
             {
-                result.AppendLine($"{count.Type}: {count.Count}");
+                result.AppendLine($"{count.Key}: {count.Value}");
             }
 
             return result.ToString().TrimEnd();
@@ -451,7 +451,7 @@ namespace Exercise6.Menus
                     {
                         items.Add(
                             new MenuItem(
-                                $"{item.Vehicle!.Brand} ({item.Vehicle.GetType().Name})",
+                                $"{item.Vehicle!.Brand} ({item.Vehicle.GetType().Name}) parkingSpot: {item.Id}",
                                 submenu: EditVehicle(item)
                             )
                         );
